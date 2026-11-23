@@ -1,0 +1,67 @@
+{
+  "manifest_version": 3,
+  "name": "MoniPulse — 智能网页摘要助手",
+  "version": "1.0.0",
+  "description": "仿 Monica.im 的极速中文摘要插件：在 Google 搜索结果页与 GitHub 项目主页加载完成后，自动通过 OpenAI 兼容接口流式总结并支持快速追问。",
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://*/*",
+    "http://localhost/*",
+    "http://127.0.0.1/*"
+  ],
+  "action": {
+    "default_title": "MoniPulse 设置",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.google.com/search*",
+        "https://www.google.com.hk/search*",
+        "https://www.google.com.tw/search*",
+        "https://www.google.co.jp/search*",
+        "https://www.google.co.uk/search*",
+        "https://www.google.de/search*",
+        "https://www.google.fr/search*",
+        "https://www.google.ca/search*",
+        "https://www.google.com.sg/search*",
+        "https://www.google.com.au/search*"
+      ],
+      "js": [
+        "shared/defaults.js",
+        "shared/markdown.js",
+        "shared/widget.js",
+        "content-google.js"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://github.com/*"
+      ],
+      "js": [
+        "shared/defaults.js",
+        "shared/markdown.js",
+        "shared/widget.js",
+        "content-github.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}

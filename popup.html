@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>MoniPulse 设置</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main class="popup-shell">
+      <header class="popup-header">
+        <div class="brand-row">
+          <span class="brand-mark">M</span>
+          <h1 class="brand-name">MoniPulse</h1>
+        </div>
+        <span class="brand-sub">OpenAI 格式中文摘要插件</span>
+      </header>
+
+      <form id="settings-form" class="popup-form">
+        <section class="field-group">
+          <label for="baseUrl">API Base URL</label>
+          <input id="baseUrl" type="url" placeholder="https://api.openai.com/v1" required />
+          <div class="preset-row">
+            <button type="button" class="preset-btn" data-url="https://api.openai.com/v1" data-model="gpt-4o-mini">OpenAI</button>
+            <button type="button" class="preset-btn" data-url="https://api.deepseek.com/v1" data-model="deepseek-chat">DeepSeek</button>
+            <button type="button" class="preset-btn" data-url="https://api.moonshot.cn/v1" data-model="moonshot-v1-8k">Moonshot</button>
+            <button type="button" class="preset-btn" data-url="http://localhost:11434/v1" data-model="qwen2.5:7b">Ollama</button>
+          </div>
+        </section>
+
+        <section class="field-group">
+          <label for="apiKey">API Key（仅保存在本地 Chrome）</label>
+          <input id="apiKey" type="password" placeholder="sk-...（Ollama 本地可留空）" autocomplete="off" />
+        </section>
+
+        <section class="field-row">
+          <div class="field-group flex-1">
+            <label for="model">模型名称</label>
+            <input id="model" type="text" placeholder="gpt-4o-mini" required />
+          </div>
+          <div class="field-group w-theme">
+            <label for="themeMode">卡片外观</label>
+            <select id="themeMode">
+              <option value="auto">跟随页面</option>
+              <option value="light">浅色</option>
+              <option value="dark">深色</option>
+            </select>
+          </div>
+        </section>
+
+        <section class="toggle-group">
+          <label class="toggle-item">
+            <input id="autoSummarizeGoogle" type="checkbox" />
+            <span>Google 搜索页加载后自动总结</span>
+          </label>
+          <label class="toggle-item">
+            <input id="autoSummarizeGithub" type="checkbox" />
+            <span>GitHub 项目主页加载后自动总结</span>
+          </label>
+        </section>
+
+        <details class="advanced-box">
+          <summary>自定义中文提示词</summary>
+          <div class="field-group">
+            <label for="googlePrompt">Google SERP 系统提示词</label>
+            <textarea id="googlePrompt" rows="4"></textarea>
+          </div>
+          <div class="field-group">
+            <label for="githubPrompt">GitHub 项目系统提示词</label>
+            <textarea id="githubPrompt" rows="4"></textarea>
+          </div>
+        </details>
+
+        <div id="status-msg" class="status-msg" hidden></div>
+
+        <footer class="action-bar">
+          <button type="button" id="test-btn" class="btn-secondary">测试连接</button>
+          <button type="submit" class="btn-primary">保存配置</button>
+        </footer>
+      </form>
+    </main>
+    <script src="shared/defaults.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>
