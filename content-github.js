@@ -127,16 +127,19 @@
     };
   }
 
-  function findAboutMountTarget() {
-    // GitHub 新版 Primer SplitPageLayout 右侧栏，挂到 About 区块正上方
+  function firstForeignChild(parent, host) {
+    let child = parent.firstElementChild;
+    while (child && (child === host || child.id === 'monipulse-github-card')) {
+      child = child.nextElementSibling;
+    }
+    return child;
+  }
+
+  function findAboutMountTarget(host) {
+    // GitHub 新版 Primer SplitPageLayout：插到侧栏 Pane 顶部，避开内部 CSS Grid，避免撑开 About
     const pane = document.querySelector('[data-component="SplitPageLayout.Pane"]');
     if (pane) {
-      const about = headingByText(pane, 'About');
-      const aboutSection = about ? about.parentElement : null;
-      if (aboutSection && aboutSection.parentElement) {
-        return { parent: aboutSection.parentElement, before: aboutSection };
-      }
-      return { parent: pane, before: pane.firstElementChild };
+      return { parent: pane, before: firstForeignChild(pane, host) };
     }
 
     // 旧版 .Layout-sidebar
@@ -162,13 +165,17 @@
   }
 
   function placeWidget(host) {
-    const target = findAboutMountTarget();
+    const target = findAboutMountTarget(host);
     if (!target || !target.parent) return false;
     if (host.parentElement === target.parent && host.nextElementSibling === (target.before || null)) {
       return true;
     }
     host.style.marginBottom = '16px';
     host.style.width = '100%';
+    host.style.maxWidth = '100%';
+    host.style.minWidth = '0';
+    host.style.overflow = 'hidden';
+    host.style.boxSizing = 'border-box';
     target.parent.insertBefore(host, target.before || null);
     return true;
   }

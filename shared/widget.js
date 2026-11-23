@@ -3,6 +3,9 @@
   const CARD_CSS = `
     :host {
       display: block;
+      min-width: 0;
+      max-width: 100%;
+      box-sizing: border-box;
       font-family: "Plus Jakarta Sans", "Noto Sans SC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color-scheme: light dark;
       --mp-bg: rgba(255, 255, 255, 0.96);
@@ -43,24 +46,31 @@
       color: var(--mp-text);
       box-shadow: var(--mp-shadow);
       overflow: hidden;
+      max-width: 100%;
+      min-width: 0;
       backdrop-filter: blur(12px);
       font-size: 14px;
       line-height: 1.65;
+      overflow-wrap: anywhere;
+      word-break: break-word;
     }
 
     .mp-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
-      padding: 12px 16px;
+      flex-wrap: wrap;
+      gap: 8px 12px;
+      padding: 10px 12px;
       border-bottom: 1px solid var(--mp-border);
+      min-width: 0;
     }
 
     .mp-brand {
       display: flex;
       align-items: center;
       gap: 10px;
+      flex: 1 1 140px;
       min-width: 0;
     }
 
@@ -79,6 +89,7 @@
     }
 
     .mp-title-wrap {
+      flex: 1;
       min-width: 0;
     }
 
@@ -103,8 +114,10 @@
     .mp-actions {
       display: flex;
       align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
       gap: 4px;
-      flex-shrink: 0;
+      min-width: 0;
     }
 
     .mp-icon-btn {
@@ -131,7 +144,10 @@
     }
 
     .mp-body {
-      padding: 16px;
+      padding: 12px;
+      min-width: 0;
+      overflow-wrap: anywhere;
+      word-break: break-word;
     }
 
     .mp-body[hidden] {
@@ -183,6 +199,8 @@
       background: var(--mp-code-bg);
       padding: 1px 5px;
       border-radius: 5px;
+      overflow-wrap: anywhere;
+      word-break: break-all;
     }
 
     .mp-code-block {
@@ -322,6 +340,9 @@
       font-size: 12px;
       cursor: pointer;
       text-align: left;
+      max-width: 100%;
+      white-space: normal;
+      overflow-wrap: anywhere;
       transition: border-color 150ms ease, color 150ms ease;
     }
 
@@ -338,6 +359,7 @@
     .mp-form {
       display: flex;
       gap: 8px;
+      min-width: 0;
     }
 
     .mp-input {
